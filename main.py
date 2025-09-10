@@ -48,22 +48,21 @@ class MyPlugin(Star):
         user_name = event.get_sender_name()
         message_str = event.message_str
         logger.info(message_str)
-        match = re.search(r"修改提示时间为\s*(\d{1,2}:\d{2})", message_str)
-        if match:
-            new_time = match.group(1)
-            if re.match(r"^(?:[01]?\d|2[0-3]):[0-5]\d$", new_time):
-                self.config['reminder_time'] = new_time
-                self.save_config()
-                yield event.plain_result(f"✅ 已成功将提醒时间修改为 {new_time}")
-            else:
-                yield event.plain_result("⚠️ 时间格式不正确，请使用 24 小时制，如 09:30 或 23:15")
-            return
-
-        if "查看提醒时间" in message_str:
-            current_time = self.config.get("reminder_time", "09:00")
-            yield event.plain_result(f"⏰ 当前提醒时间为 {current_time}")
-            return
-
+        # match = re.search(r"修改提示时间为\s*(\d{1,2}:\d{2})", message_str)
+        # if match:
+        #     new_time = match.group(1)
+        #     if re.match(r"^(?:[01]?\d|2[0-3]):[0-5]\d$", new_time):
+        #         self.config['reminder_time'] = new_time
+        #         self.save_config()
+        #         yield event.plain_result(f"✅ 已成功将提醒时间修改为 {new_time}")
+        #     else:
+        #         yield event.plain_result("⚠️ 时间格式不正确，请使用 24 小时制，如 09:30 或 23:15")
+        #     return
+        #
+        # if "查看提醒时间" in message_str:
+        #     current_time = self.config.get("reminder_time", "09:00")
+        #     yield event.plain_result(f"⏰ 当前提醒时间为 {current_time}")
+        #     return
         yield event.plain_result(f"Hello, {user_name}, 你发了 {message_str}!")
 
 
