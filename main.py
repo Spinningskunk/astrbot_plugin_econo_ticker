@@ -15,7 +15,6 @@ class MyPlugin(Star):
 
     async def initialize(self):
         """异步初始化（如果需要）"""
-        pass
 
     def load_config(self):
         if os.path.exists(self.config_path):
@@ -48,7 +47,7 @@ class MyPlugin(Star):
     async def marketpulse(self, event: AstrMessageEvent):
         user_name = event.get_sender_name()
         message_str = event.message_str
-
+        logger.info(message_str)
         match = re.search(r"修改提示时间为\s*(\d{1,2}:\d{2})", message_str)
         if match:
             new_time = match.group(1)
@@ -66,3 +65,7 @@ class MyPlugin(Star):
             return
 
         yield event.plain_result(f"Hello, {user_name}, 你发了 {message_str}!")
+
+
+    async def terminate(self):
+        """可选择实现异步的插件销毁方法，当插件被卸载/停用时会调用。"""
